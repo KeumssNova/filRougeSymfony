@@ -3,36 +3,55 @@
 {% block title %}Taches{% endblock %}
 
 {% block body %}
-    <h1>Taches</h1>
+    <div class="d-flex justify-content-center align-items-center m-3">
+        <h1>Votre Tache</h1>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tach.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ tach.titre }}</td>
-            </tr>
-            <tr>
-                <th>DateDebut</th>
-                <td>{{ tach.dateDebut ? tach.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateFin</th>
-                <td>{{ tach.dateFin ? tach.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ tach.contenu }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="d-flex justify-content-evenly" >
+        <div class="btn btn-secondary">
+            <a style="text-decoration: none;" href="{{ path('app_taches_index') }}">Retour</a>
+        </div>
+        <div class="btn btn-secondary" >
+            <a style="text-decoration: none;" href="{{ path('app_taches_edit', {'id': tach.id}) }}">Modifier</a>
+        </div>
 
-    <a href="{{ path('app_taches_index') }}">back to list</a>
+        {{ include('taches/deleteTaches.html.twig') }}
+    </div>
+    <br>
+    <div class="d-flex justify-content-center align-items-center">
+        <table class="table table-dark w-75">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ tach.id }}</td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ tach.titre }}</td>
+                </tr>
+                <tr>
+                    <th>DateDebut</th>
+                    <td>{{ tach.dateDebut ? tach.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>DateFin</th>
+                    <td>{{ tach.dateFin ? tach.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Contenu</th>
+                    <td>{{ tach.contenu }}</td>
+                </tr>
+                <tr>
+                    <th>Projet lié</th>
+                    <td>{{ tach.projets }}</td>
+                </tr>
+                <tr>
+                    <th>Membre Assigné</th>
+                    <td>{{ tach.User }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('app_taches_edit', {'id': tach.id}) }}">edit</a>
 
-    {{ include('taches/deleteTaches.html.twig') }}
 {% endblock %}

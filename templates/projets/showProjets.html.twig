@@ -1,11 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projets{% endblock %}
+{% block title %}Votre Projets{% endblock %}
 
 {% block body %}
-    <h1>Projets</h1>
+    <div class="d-flex justify-content-center align-items-center m-3">
+        <h1>Votre Projet</h1>
+    </div>
 
-    <table class="table">
+
+    <div class="d-flex justify-content-evenly">
+        <div class="btn btn-secondary "  >
+            <a style="text-decoration: none;" href="{{path('app_projets_affecter', {'id' : projet.id})}}">
+                Affecter
+            </a>
+        </div>
+        <div class="btn btn-secondary">
+            <a style="text-decoration: none;" href="{{ path('app_projets_index') }}">Retour</a>
+        </div>
+        <div class="btn btn-secondary">
+            <a style="text-decoration: none;" href="{{ path('app_projets_edit', {'id': projet.id}) }}">Modifier</a>
+        </div>
+
+        {{ include('projets/deleteProjets.html.twig') }}
+    </div>
+    <br>
+    <div class="d-flex justify-content-center align-items-center">
+        <table class="table table-dark w-75">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -24,19 +44,12 @@
                 <td>{{ projet.contenu }}</td>
             </tr>
             <tr>
-                <th>Taches</th>
-                <td>{{ taches. }}</td>
-            </tr>
-            <tr>
                 <th>DateFin</th>
                 <td>{{ projet.dateFin ? projet.dateFin|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
-    </table>
+        </table>
+    </div>
 
-    <a href="{{ path('app_projets_index') }}">back to list</a>
 
-    <a href="{{ path('app_projets_edit', {'id': projet.id}) }}">edit</a>
-
-    {{ include('projets/deleteProjets.html.twig') }}
 {% endblock %}

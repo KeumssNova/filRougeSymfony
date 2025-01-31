@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Classes\Search;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -33,20 +34,45 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    
+
+
+       /**
+        * @return User[] Returns an array of User objects
+        */
+       public function findByService($value): array
+       {
+           return $this->createQueryBuilder('u')
+               ->andWhere('u.service = :val')
+               ->setParameter('val', $value)
+               ->orderBy('u.id', 'ASC')
+               ->setMaxResults(10)
+               ->getQuery()
+               ->getResult()
+           ;
+       }
+              /**
+        * @return User[] Returns an array of User objects
+        */
+        public function findBySearch(Search $search): array
+        {
+            $query = $this->createQueryBuilder('u')
+             ->select('u');
+             if(!empty($search->users)){
+                 $query = $query
+                         ->andWhere('u.id IN (:users)')
+                         ->setParameter('users', $search->users);
+             }
+             if(!empty($search->string)){
+                 $query = $query
+                         ->andWhere('u.service LIKE :string')
+                         ->setParameter('string', $search->string);
+             }
+             return $query
+                ->getQuery()
+                ->getResult()
+            ;
+        }
 
     //    public function findOneBySomeField($value): ?User
     //    {

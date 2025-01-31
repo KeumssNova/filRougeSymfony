@@ -3,9 +3,16 @@
 {% block title %}New Projets{% endblock %}
 
 {% block body %}
-    <h1>Create new Projets</h1>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <h1>Create new Projets</h1>
+    </div>
+
+    <div class=" btn btn-secondary mx-4 ">
+        <a style="text-decoration: none;" href="{{ path('app_projets_index') }}">back to list</a>
+    </div>
 
     {{ include('projets/formProjets.html.twig') }}
+    
 
-    <a href="{{ path('app_projets_index') }}">back to list</a>
+
 {% endblock %}

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Classes\Search;
 use App\Entity\User;
+use App\Form\SearchType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -104,5 +106,21 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/affecter/{id}', name: 'app_User_affecter', methods: ['GET'])]
+    public function affecter(Request $request, UserRepository $userRepository): Response
+    {   
+        $users = $userRepository->findAll();
+        $search = new search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form-> handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $users = $userRepository->findByService($search);
+        }
+
+
+        return $this->render('projets/affecterProjets.html.twig', [
+            'users' => $users
+        ]);
     }
 }

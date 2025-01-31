@@ -29,7 +29,7 @@ class TachesType extends AbstractType
             ])
             ->add('User', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'firstName',
             ])
         ;
     }

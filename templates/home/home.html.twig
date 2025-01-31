@@ -2,12 +2,17 @@
 
 {% block title %}Home{% endblock %}
 
+{% block stylesheet %}
+
+{% endblock %}
+
 {% block body %}
 
-{% block hero %}
-    <div class="hero bg-secondary py-3 px-3 d-flex justify-content-center align-items-center">
-        <h4 class=""> {{ nom }} </h4>
+{% block hero %} 
+    <div class="hero">
+        <img class="w-100" src="{{ asset ('assets/icons/banner.png')}}" alt="">
     </div>
+
 {% endblock %} 
 
 

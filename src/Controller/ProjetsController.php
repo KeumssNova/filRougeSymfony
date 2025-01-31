@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Classes\Search;
 use App\Entity\Projets;
 use App\Form\ProjetsType;
+use App\Form\SearchType;
+use App\Repository\UserRepository;
 use App\Repository\ProjetsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,5 +80,22 @@ class ProjetsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_projets_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/affecter/{id}', name: 'app_projets_affecter', methods: ['GET'])]
+    public function affecter(Request $request, UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $users = $userRepository->findBySearch($search);
+        }
+
+        return $this->render('projets/affecterProjets.html.twig', [
+            'users' => $users,
+            'form' => $form->createView()
+        ]);
     }
 }
