@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taches{% endblock %}
+
+{% block body %}
+    <h1>Taches</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tach.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ tach.titre }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ tach.dateDebut ? tach.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ tach.dateFin ? tach.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ tach.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_taches_index') }}">back to list</a>
+
+    <a href="{{ path('app_taches_edit', {'id': tach.id}) }}">edit</a>
+
+    {{ include('taches/deleteTaches.html.twig') }}
+{% endblock %}

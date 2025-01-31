@@ -1,0 +1,34 @@
+{# 
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+ #}
+{{ form_start(form) }}
+<div class="card bg-secondary m-5 p-3">
+    <div class="form-group">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.titre) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.contenu) }}
+        {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.contenu) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateDebut) }}
+        {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.dateDebut) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateFin) }}
+        {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.dateFin) }}
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}
+
+
