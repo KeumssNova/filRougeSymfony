@@ -51,5 +51,43 @@
         </table>
     </div>
 
+    <div class="d-flex justify-content-center align-items-center">
+        <h3>Utilisateurs affectés</h3>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+        <table class="table table-dark w-75">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Matricule</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.matricule }}</td>
+                        <td>
+                            <form method="post" action="{{ path('app_projets_remove_user', {'projetId': projet.id, 'userId': user.id}) }}">
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Voulez-vous vraiment retirer cet utilisateur ?')">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">Aucun utilisateur affecté</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
 {% endblock %}
